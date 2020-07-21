@@ -1,0 +1,60 @@
+/*
+ * Вопрос 8
+ * 2.Легкость добавления других фигур, тут не понятно в чем заключается задача 
+ * 3.Можно сделать метод с необязательными полями и в зависимости от количества
+ *   параметров вычислять площадь
+ */
+using System;
+using System.Linq;
+
+namespace Square
+{
+    public class Square
+    {
+        public string SqrCircle(double r)
+        {
+            return Math.Round(Math.PI * r * r, 2).ToString();
+        }
+        public string SqrTriangle(double a, double b, double c)
+        {
+            double p = (a + b + c) / 2;
+            string right_angle = " not right angle";
+            double[] nums = new double[3] { a, b, c };
+            if (nums.Min() / nums.Max() == 1) right_angle = " right angle";
+            string sqr = Math.Round(Math.Sqrt(p * (p - a) * (p - b) * (p - c)), 2).ToString();
+            return sqr+right_angle;
+        }
+
+    }
+}
+namespace Square.Test
+{
+    [TestClass]
+    public class UnitTest1
+    {
+        [TestMethod]
+        public void SqrTriangle_5_5_5_1083returned()
+        {
+            string expected = "10,83";
+
+            Square s = new Square();
+            string actual = s.SqrTriangle(5, 5, 5);
+
+            StringAssert.Contains(actual, expected);
+        }
+        [TestMethod]
+        public void SqrCircle_2_1257returned()
+        {
+            string expected = "12,57";
+
+            Square s = new Square();
+            string actual = s.SqrCircle(2);
+
+            StringAssert.Contains(actual, expected);
+        }
+    }
+}
+// Вопрос 9
+SELECT Products.Name,Сategory.Name from ProductMap
+JOIN Products ON Products.id=ProductMap.Product_id
+JOIN Category ON Category.id=ProductMap.Category_id
